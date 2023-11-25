@@ -8,7 +8,7 @@ import Footer from "@/components/Footer/Footer";
 
 export default function Home() {
   return (
-    <main>
+    <main className="px-4 py-8">
       {/* Header (Hace una llamada a todos los followers de todas las redes) */}
       <Header />
 

@@ -1,10 +1,11 @@
-import Image from "next/image";
-import { dataFacebook, dataInstagram, dataTwitter } from "./lib/data";
 import Header from "@/components/Header/Header";
 import DarkMode from "@/components/DarkMode/DarkMode";
 import FollowersCards from "@/components/FollowersCards/FollowersCards";
 import Overview from "@/components/Overview/Overview";
 import Footer from "@/components/Footer/Footer";
+import { DataInfo } from "./lib/definitions";
+
+import { dataFacebook, dataInstagram, dataTwitter } from "./lib/data";
 
 export default function Home() {
   return (
@@ -16,11 +17,10 @@ export default function Home() {
       <DarkMode />
 
       {/* FollowersCards (Llaman a los followers de cada red) */}
-      <FollowersCards />
-
+      <FollowersCards data={[dataFacebook, dataInstagram, dataTwitter]} />
       {/* Overview (Hay cartas diferentes, por lo tanto se divide en más componentes pero tienen el mismo estilo. 
         Algunas llaman a las views y otros a los likes) */}
-      <Overview />
+      <Overview data={[dataFacebook, dataInstagram, dataTwitter]} />
 
       <Footer />
     </main>

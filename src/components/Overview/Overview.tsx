@@ -5,57 +5,42 @@ import IconDown from "../Icons/IconDown";
 import IconTwitter from "../Icons/IconTwitter";
 import IconInstagram from "../Icons/IconInstagram";
 
-export default function Overview() {
-  // Overview (Hay cartas diferentes, por lo tanto se divide en más componentes pero tienen el mismo estilo.
-  // Algunas llaman a las views y otros a los likes)
+interface OverviewProps {
+  data: { views: number; likes: number }[];
+}
+
+const Overview: React.FC<OverviewProps> = ({ data }) => {
   return (
     <section>
       <h2 className="mb-4 text-2xl text-gray-500">Overview - Today</h2>
 
-      <article className="mb-4 flex flex-col gap-y-6 bg-gray-200 py-4">
-        <div className="flex items-center justify-around">
-          <p className="text-lg text-gray-500">Page Views</p>
-          <IconFacebook />
-        </div>
-
-        <div className="flex items-center justify-around">
-          <p className="text-5xl font-bold">87</p>
-          <div className="flex items-center">
-            <IconUp />
-            <p className="text-green-500">3%</p>
+      {data.map((item, index) => (
+        <article
+          key={index}
+          className={`mb-4 flex flex-col gap-y-6 bg-gray-200 py-4`}
+        >
+          <div className="flex items-center justify-around">
+            {index === 0 && <IconFacebook />}
+            {index === 1 && <IconTwitter />}
+            {index === 2 && <IconInstagram />}
+            <p className="text-lg text-gray-500">Page Views</p>
           </div>
-        </div>
-      </article>
 
-      <article className="mb-4 flex flex-col gap-y-6 bg-gray-200 py-4">
-        <div className="flex items-center justify-around">
-          <p className="text-lg text-gray-500">Page Views</p>
-          <IconTwitter />
-        </div>
-
-        <div className="flex items-center justify-around">
-          <p className="text-5xl font-bold">435</p>
-          <div className="flex items-center">
-            <IconUp />
-            <p className="text-green-500">12%</p>
+          <div className="flex items-center justify-around">
+            <p className="text-5xl font-bold">{item.views}</p>
+            <div className="flex items-center">
+              {item.likes >= 0 ? <IconUp /> : <IconDown />}
+              <p
+                className={item.likes >= 0 ? "text-green-500" : "text-red-500"}
+              >
+                {Math.abs(item.likes)}%
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article className="mb-4 flex flex-col gap-y-6 bg-gray-200 py-4">
-        <div className="flex items-center justify-around">
-          <p className="text-lg text-gray-500">Page Views</p>
-          <IconInstagram />
-        </div>
-
-        <div className="flex items-center justify-around">
-          <p className="text-5xl font-bold">23</p>
-          <div className="flex items-center">
-            <IconDown />
-            <p className="text-red-500">15%</p>
-          </div>
-        </div>
-      </article>
+        </article>
+      ))}
     </section>
   );
-}
+};
+
+export default Overview;
